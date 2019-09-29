@@ -1,0 +1,32 @@
+{
+  "name": "smart-actions",
+  "version": "1.0.0",
+  "description": "Smart Actions using DialogFlow and Firebase",
+  "main": "public/index.html",
+  "scripts": {
+    "deploy:all": "firebase deploy",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "start": "firebase serve",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnWebb4/smart-actions.git"
+  },
+  "keywords": [
+    "Smart",
+    "Actions",
+    "DialogFlow",
+    "Firebase"
+  ],
+  "author": "JohnWebb4",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JohnWebb4/smart-actions/issues"
+  },
+  "homepage": "https://github.com/JohnWebb4/smart-actions#readme",
+  "devDependencies": {
+    "firebase-tools": "^7.4.0"
+  }
+}
