@@ -4,6 +4,7 @@
   "description": "Smart Actions using DialogFlow and Firebase",
   "main": "public/index.html",
   "scripts": {
+    "build": "webpack --mode=production",
     "deploy:all": "firebase deploy",
     "deploy:functions": "firebase deploy --only functions",
     "deploy:hosting": "firebase deploy --only hosting",
@@ -26,7 +27,35 @@
     "url": "https://github.com/JohnWebb4/smart-actions/issues"
   },
   "homepage": "https://github.com/JohnWebb4/smart-actions#readme",
+  "dependencies": {
+    "typescript": "^3.6.3"
+  },
   "devDependencies": {
-    "firebase-tools": "^7.4.0"
+    "firebase-tools": "^7.4.0",
+    "husky": "^3.0.8",
+    "lint-staged": "^9.4.1",
+    "prettier": "^1.18.2",
+    "ts-loader": "^6.2.0",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "./bin/pre-push.sh"
+    }
+  },
+  "lint-staged": {
+    "*.{css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "tslint --fix",
+      "git add"
+    ]
   }
 }
