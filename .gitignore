@@ -62,3 +62,9 @@ typings/
 
 # Builds
 public/bundle.js
+
+# Firebase
+.firebase
+
+# Environment variables
+src/constants/env.constant.ts

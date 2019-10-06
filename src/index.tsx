@@ -1,7 +1,11 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import firebase from "firebase";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import { App } from "./App.tsx";
+import { App } from "./App";
+import { firebaseConfig } from "./constants/env.constant";
+
+firebase.initializeApp(firebaseConfig);
 
 const domContainer = document.querySelector("#app");
 
