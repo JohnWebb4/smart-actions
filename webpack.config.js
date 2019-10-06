@@ -1,18 +1,18 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  entry: "./src/index.ts",
-  mode: "production",
+  entry: './src/index.tsx',
+  mode: 'production',
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "ts-loader"
-      }
-    ]
+        use: 'ts-loader',
+      },
+    ],
   },
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "public")
-  }
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public'),
+  },
 };
