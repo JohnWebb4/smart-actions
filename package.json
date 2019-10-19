@@ -37,12 +37,14 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",
+    "styled-components": "^4.4.0",
     "typescript": "^3.6.4"
   },
   "devDependencies": {
     "@types/react": "^16.9.9",
     "@types/react-dom": "^16.9.2",
     "@types/react-router-dom": "^5.1.0",
+    "@types/styled-components": "^4.1.19",
     "firebase-tools": "^7.6.1",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",

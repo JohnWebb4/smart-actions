@@ -1,0 +1,30 @@
+body {
+  /* Colors */
+  --rgb-blue: 64, 131, 199;
+  --rgb-gray: 185, 197, 201;
+
+  --black: #000000;
+  --light-blue: #6fa2d6;
+  --blue: #4083c7;
+  --dark-gray: #959fa6;
+  --light-gray: #e8e8e8;
+  --gray: #b9c5c9;
+  --green: #43ba87;
+  --red: #d65a51;
+  --white: $ffffff;
+
+  /* Spacing */
+  --rel-xlarge: 75%;
+  --rel-large: 50%;
+  --rel-medium: 25%;
+  --rel-small: 10%;
+  --rel-xsmall: 5%;
+  --rel-xxsmall: 2%;
+
+  --px-xlarge: 64px;
+  --px-large: 32px;
+  --px-medium: 16px;
+  --px-small: 8px;
+  --px-xsmall: 4px;
+  --px-xxsmall: 2px;
+}

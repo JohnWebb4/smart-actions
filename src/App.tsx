@@ -2,17 +2,21 @@ import firebase from "firebase";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 
+import { logger } from "./clients/logger.client";
 import { Conversation } from "./pages/Conversation.page";
 import { Home } from "./pages/Home.page";
 import { Login } from "./pages/Login.page";
 import { Logout } from "./pages/Logout.page";
+import { createNewUser } from "./services/user.service";
 
 function App() {
   const [user, setUser] = useState<firebase.User>();
 
-  firebase.auth().onAuthStateChanged(newUser => {
-    if (newUser) {
-      setUser(newUser);
+  firebase.auth().onAuthStateChanged(authUser => {
+    if (authUser) {
+      setUser(authUser);
+
+      createNewUser(authUser).catch(logger.error);
     }
   });
 
@@ -56,7 +60,7 @@ function App() {
         </Route>
 
         <Route path="/conversation">
-          <Conversation />
+          {user ? <Conversation user={user} /> : null}
         </Route>
       </Switch>
     </Router>
