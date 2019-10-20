@@ -6,8 +6,9 @@ interface Props {
 
 const BubbleMessage = styled.li<Props>`
   border-radius: var(--rel-medium);
+  list-style-type: none;
+  max-width: var(--rel-medium);
   padding: var(--px-medium) var(--px-large);
-  max-width: var(--rel-small);
 
   ${({ isOutgoing }: Props) => css`
     background: radial-gradient(

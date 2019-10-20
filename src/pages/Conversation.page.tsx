@@ -1,5 +1,5 @@
 import { User } from "firebase";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { db } from "../clients/db.client";
@@ -14,6 +14,7 @@ function Conversation({ user }: Props) {
   const [messages, setMessages] = useState<
     firebase.firestore.QueryDocumentSnapshot[]
   >([]);
+  const [text, setText] = useState<string>("Test");
 
   function updateMessages(messagesSnapshot: firebase.firestore.QuerySnapshot) {
     setMessages(messagesSnapshot.docs);
@@ -32,11 +33,38 @@ function Conversation({ user }: Props) {
     };
   }, []);
 
+  function onSubmit(e: any): void {
+    const created = new Date();
+
+    db.collection("users")
+      .doc(user.uid)
+      .collection("messages")
+      .doc(created.toISOString())
+      .set({
+        created,
+        isOutgoing: true,
+        text
+      });
+
+    e.preventDefault();
+    setText("");
+  }
+
+  function onTextChange(e: ChangeEvent<HTMLInputElement>) {
+    setText(e.target.value);
+  }
+
   return (
     <div>
       <MessageContainer>{messages.map(renderMessage)}</MessageContainer>
-      <form>
-        <input type="text" name="message" />
+      <form onSubmit={onSubmit}>
+        <input
+          autoFocus
+          type="text"
+          name="message"
+          value={text}
+          onChange={onTextChange}
+        />
         <input type="submit" value="submit" />
       </form>
     </div>
@@ -55,7 +83,9 @@ function renderMessage(message: firebase.firestore.QueryDocumentSnapshot) {
 
 const MessageContainer = styled.ol`
   display: flex;
-  flex: 1;
+  flex-direction: column;
+  margin: var(--rel-xxsmall) var(--rel-xsmall);
+  padding: 0px 0px;
 `;
 
 export { Conversation };
