@@ -6,3 +6,6 @@
 typings/
 
 node_modules/
+
+# Constants
+src/constants/env.constant.ts

@@ -6,6 +6,10 @@ class Logger {
   error(...rest: any[]) {
     console.log("Error:", ...rest);
   }
+
+  info(...rest: any[]) {
+    console.log("Info:", ...rest);
+  }
 }
 
 const logger = new Logger();

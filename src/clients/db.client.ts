@@ -1,15 +1,12 @@
 import firebase from "firebase";
 
 import { DEV, FIREBASE_CONFIG } from "../constants/env.constant";
-import { logger } from "./logger.client";
 
 const ENV = DEV ? "dev" : "prod";
 
 try {
   firebase.app();
 } catch {
-  logger.debug("Initializing firebase app");
-
   firebase.initializeApp(FIREBASE_CONFIG);
 }
 

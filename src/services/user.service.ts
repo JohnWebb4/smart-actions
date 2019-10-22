@@ -1,17 +1,21 @@
-import { User } from "firebase";
-
 import { db } from "../clients/db.client";
 
-async function createNewUser(user: User) {
-  const userRef = db.collection("users").doc(user.uid);
+async function createNewUser(): Promise<string> {
+  const userRef = db.collection("users");
 
-  const userSnapshot = await userRef.get();
+  let uid = localStorage.getItem("uid");
 
-  if (!userSnapshot.exists) {
-    userRef.set({
+  if (!uid) {
+    const userEntity = await userRef.add({
       created: new Date()
     });
+
+    uid = userEntity.id;
+
+    localStorage.setItem("uid", uid);
   }
+
+  return uid;
 }
 
 export { createNewUser };
