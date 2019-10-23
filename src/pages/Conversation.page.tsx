@@ -54,19 +54,20 @@ function Conversation({ uid }: Props) {
   }
 
   return (
-    <div>
+    <Page>
       <MessageContainer>{messages.map(renderMessage)}</MessageContainer>
-      <form onSubmit={onSubmit}>
-        <input
+
+      <InputContainer onSubmit={onSubmit}>
+        <InputText
           autoFocus
-          type="text"
           name="message"
           value={text}
           onChange={onTextChange}
         />
-        <input type="submit" value="submit" />
-      </form>
-    </div>
+
+        <SubmitButton type="submit" value="Send" />
+      </InputContainer>
+    </Page>
   );
 }
 
@@ -80,11 +81,46 @@ function renderMessage(message: firebase.firestore.QueryDocumentSnapshot) {
   );
 }
 
+const Page = styled.div`
+  flex-direction: column;
+`;
+
 const MessageContainer = styled.ol`
   display: flex;
+  flex: 1;
+  min-height: 90vh;
   flex-direction: column;
   margin: var(--rel-xxsmall) var(--rel-xsmall);
-  padding: 0px 0px;
+  padding: 0;
+`;
+
+const InputContainer = styled.form`
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  position: sticky;
+  bottom: 0;
+`;
+
+const InputText = styled.input`
+  border-width: 1px 0 0 0;
+  border-color: var(--black);
+  display: flex;
+  font-size: 1.2em;
+  padding: var(--px-small);
+  flex: 8;
+`;
+
+const SubmitButton = styled.input`
+  border-radius: 0 var(--rel-small) var(--rel-small) 0;
+  justify-content: center;
+  background-color: var(--blue);
+  display: flex;
+  flex: 1;
+  font-size: 1.5em;
+  padding: var(--px-small);
 `;
 
 export { Conversation };

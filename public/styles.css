@@ -1,4 +1,8 @@
 body {
+  margin: 0;
+  font-family: "Ubuntu", sans-serif;
+  width: 100%;
+
   /* Colors */
   --rgb-blue: 64, 131, 199;
   --rgb-gray: 185, 197, 201;
