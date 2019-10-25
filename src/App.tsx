@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { logger } from "./clients/logger.client";
 import { Conversation } from "./pages/Conversation.page";
 import { Home } from "./pages/Home.page";
+import { Invoices } from "./pages/Invoices.page";
 import { createNewUser } from "./services/user.service";
 
 function App() {
@@ -34,6 +35,12 @@ function App() {
             </li>
           ) : null}
         </NavContainer>
+
+        {uid ? (
+          <li>
+            <NavLink to="/invoices">Invoices</NavLink>
+          </li>
+        ) : null}
       </NavBar>
 
       <Switch>
@@ -44,6 +51,8 @@ function App() {
         <Route path="/conversation">
           {uid ? <Conversation uid={uid} /> : null}
         </Route>
+
+        <Route path="/invoices">{uid ? <Invoices uid={uid} /> : null}</Route>
       </Switch>
     </Router>
   );

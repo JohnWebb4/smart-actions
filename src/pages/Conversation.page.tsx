@@ -15,17 +15,15 @@ function Conversation({ uid }: Props) {
   >([]);
   const [text, setText] = useState<string>("");
 
-  function updateMessages(messagesSnapshot: firebase.firestore.QuerySnapshot) {
-    setMessages(messagesSnapshot.docs);
-  }
-
   useEffect(() => {
     const messagesCollection = db
       .collection("users")
       .doc(uid)
       .collection("messages");
 
-    const onMessageRef = messagesCollection.onSnapshot(updateMessages);
+    const onMessageRef = messagesCollection.onSnapshot(messagesSnapshot => {
+      setMessages(messagesSnapshot.docs);
+    });
 
     return () => {
       onMessageRef();
