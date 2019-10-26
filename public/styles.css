@@ -32,3 +32,8 @@ body {
   --px-xsmall: 4px;
   --px-xxsmall: 2px;
 }
+
+#app {
+  display: flex;
+  flex-direction: column;
+}

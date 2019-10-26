@@ -1,9 +1,11 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { db } from "../clients/db.client";
 import { BubbleMessage } from "../components/BubbleMessage.component";
+import { Page } from "../components/Page.component";
 import { Message } from "../types/message";
+import { scrollTo } from "../utils/scroll.util";
 
 interface Props {
   uid?: string;
@@ -14,6 +16,10 @@ function Conversation({ uid }: Props) {
     firebase.firestore.QueryDocumentSnapshot[]
   >([]);
   const [text, setText] = useState<string>("");
+  const pageRef = useRef<HTMLDivElement | null>(null);
+  const previousMessages = useRef<firebase.firestore.QueryDocumentSnapshot[]>(
+    []
+  );
 
   // Load messages
   useEffect(() => {
@@ -23,7 +29,9 @@ function Conversation({ uid }: Props) {
       .collection("messages");
 
     // Callback to continuously update
-    const onMessageRef = messagesCollection.onSnapshot(messagesSnapshot => {
+    const onMessageRef = messagesCollection.onSnapshot(function onMessage(
+      messagesSnapshot
+    ) {
       setMessages(messagesSnapshot.docs);
     });
 
@@ -31,6 +39,19 @@ function Conversation({ uid }: Props) {
       onMessageRef();
     };
   }, []);
+
+  useEffect(() => {
+    // If new message then scroll
+    if (
+      messages.length !== previousMessages.current.length &&
+      previousMessages.current.length !== 0 &&
+      pageRef.current
+    ) {
+      scrollTo(0, pageRef.current.scrollHeight);
+    }
+
+    previousMessages.current = messages;
+  }, [messages]);
 
   function onSubmit(e: any): void {
     const created = new Date();
@@ -55,8 +76,10 @@ function Conversation({ uid }: Props) {
   }
 
   return (
-    <Page>
-      <MessageContainer>{messages.map(renderMessage)}</MessageContainer>
+    <>
+      <Page ref={pageRef} center flex id="messagePage">
+        <MessageContainer>{messages.map(renderMessage)}</MessageContainer>
+      </Page>
 
       <InputContainer onSubmit={onSubmit}>
         <InputText
@@ -68,7 +91,7 @@ function Conversation({ uid }: Props) {
 
         <SubmitButton type="submit" value="Send" />
       </InputContainer>
-    </Page>
+    </>
   );
 }
 
@@ -82,14 +105,10 @@ function renderMessage(message: firebase.firestore.QueryDocumentSnapshot) {
   );
 }
 
-const Page = styled.div`
-  flex-direction: column;
-`;
-
 const MessageContainer = styled.ol`
   display: flex;
   flex: 1;
-  min-height: 90vh;
+  min-height: 75vh;
   flex-direction: column;
   margin: var(--rel-xxsmall) var(--rel-xsmall);
   padding: 0;
@@ -106,8 +125,7 @@ const InputContainer = styled.form`
 `;
 
 const InputText = styled.input`
-  border-width: 1px 0 0 0;
-  border-color: var(--black);
+  border: 1px solid var(--black);
   display: flex;
   font-size: 1.2em;
   padding: var(--px-small);

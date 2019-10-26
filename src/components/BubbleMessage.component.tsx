@@ -6,8 +6,15 @@ interface Props {
 
 const BubbleMessage = styled.li<Props>`
   list-style-type: none;
-  max-width: var(--rel-medium);
   padding: var(--px-medium) var(--px-large);
+
+  @media only screen and (min-width: 600px) {
+    max-width: var(--rel-medium);
+  }
+
+  @media only screen and (max-width: 600px) {
+    margin: var(--px-medium);
+  }
 
   ${({ isOutgoing }: Props) => css`
     align-self: ${isOutgoing ? "flex-end" : "flex-start"};
