@@ -11,6 +11,7 @@ import { createNewUser } from "./services/user.service";
 function App() {
   const [uid, setUID] = useState<string>();
 
+  // Create new user if needed
   useEffect(() => {
     createNewUser()
       .then(newUID => {

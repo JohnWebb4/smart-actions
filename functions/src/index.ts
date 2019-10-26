@@ -7,6 +7,7 @@ import { Message } from "./types/message";
 import { handleIncomingMessage } from "./services/message.service";
 import { logger } from "./utils/logger.util";
 
+// When creating a message
 const onCreateMessage = functions.firestore
   .document("/env/{env}/users/{uid}/messages/{messageID}")
   .onCreate((snapshot, context) => {

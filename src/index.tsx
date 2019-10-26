@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import { App } from "./App";
 import { FIREBASE_CONFIG } from "./constants/env.constant";
 
+// Initialize Firebase
 try {
   firebase.app();
 } catch {

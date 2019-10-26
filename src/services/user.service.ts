@@ -6,6 +6,7 @@ async function createNewUser(): Promise<string> {
   let uid = localStorage.getItem("uid");
 
   if (!uid) {
+    // Add user with random ID
     const userEntity = await userRef.add({
       created: new Date()
     });

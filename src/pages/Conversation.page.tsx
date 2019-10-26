@@ -15,12 +15,14 @@ function Conversation({ uid }: Props) {
   >([]);
   const [text, setText] = useState<string>("");
 
+  // Load messages
   useEffect(() => {
     const messagesCollection = db
       .collection("users")
       .doc(uid)
       .collection("messages");
 
+    // Callback to continuously update
     const onMessageRef = messagesCollection.onSnapshot(messagesSnapshot => {
       setMessages(messagesSnapshot.docs);
     });
@@ -33,6 +35,7 @@ function Conversation({ uid }: Props) {
   function onSubmit(e: any): void {
     const created = new Date();
 
+    // Send message
     db.collection("users")
       .doc(uid)
       .collection("messages")
